@@ -12,6 +12,9 @@ import { X, Plus, Settings } from "lucide-react"
 import { WeatherWidget } from "./weather-widget"
 import { SmartSuggestions } from "./smart-suggestions"
 import { QuickActions } from "./quick-actions"
+import { CalendarInsights } from "./calendar-insights"
+import { MeetingScheduler } from "./meeting-scheduler"
+import { CalendarSharing } from "./calendar-sharing"
 
 export function CalendarSidebar() {
   const {
@@ -90,6 +93,15 @@ export function CalendarSidebar() {
 
         {/* Quick Actions */}
         <QuickActions />
+
+        {/* Weekly Insights */}
+        <CalendarInsights />
+
+        {/* Meeting Scheduler */}
+        <MeetingScheduler />
+
+        {/* Calendar Sharing */}
+        <CalendarSharing />
 
         <Card className="p-4 mb-6">
           <div className="flex items-center justify-between mb-3">

@@ -22,6 +22,7 @@ import { format, addMonths, subMonths, addWeeks, subWeeks, addDays, subDays } fr
 import { SearchModal } from "./search-modal"
 import { SettingsModal } from "./settings-modal"
 import { FilterModal } from "./filter-modal"
+import { NotificationCenter } from "./notification-center"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
@@ -267,6 +268,8 @@ export function CalendarHeader() {
               >
                 <BarChart3 className="h-5 w-5" />
               </Button>
+
+              <NotificationCenter />
 
               <Button
                 variant="ghost"
