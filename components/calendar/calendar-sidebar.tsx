@@ -9,6 +9,9 @@ import { format, isSameMonth, isSameDay, startOfMonth, endOfMonth, eachDayOfInte
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { X, Plus, Settings } from "lucide-react"
+import { WeatherWidget } from "./weather-widget"
+import { SmartSuggestions } from "./smart-suggestions"
+import { QuickActions } from "./quick-actions"
 
 export function CalendarSidebar() {
   const {
@@ -78,6 +81,15 @@ export function CalendarSidebar() {
             </Button>
           </div>
         )}
+
+        {/* Weather Widget */}
+        <WeatherWidget />
+
+        {/* Smart Suggestions */}
+        <SmartSuggestions />
+
+        {/* Quick Actions */}
+        <QuickActions />
 
         <Card className="p-4 mb-6">
           <div className="flex items-center justify-between mb-3">

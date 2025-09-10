@@ -59,6 +59,9 @@ interface CalendarContextType {
   deleteCalendar: (id: string) => void
   toggleCalendarVisibility: (id: string) => void
   getVisibleEvents: () => CalendarEvent[]
+  addEvent: (event: Omit<CalendarEvent, "id">) => void
+  updateEvent: (id: string, updates: Partial<CalendarEvent>) => void
+  deleteEvent: (id: string) => void
 }
 
 const CalendarContext = createContext<CalendarContextType | undefined>(undefined)
@@ -112,8 +115,8 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
       id: "1",
       title: "Team Meeting",
       description: "Weekly team sync and project updates",
-      startDate: new Date(2024, 11, 15, 10, 0),
-      endDate: new Date(2024, 11, 15, 11, 0),
+      startDate: new Date(2025, 8, 10, 10, 0), // Updated to current month
+      endDate: new Date(2025, 8, 10, 11, 0),
       color: "#3B82F6",
       category: "Work",
       location: "Conference Room A",
@@ -122,9 +125,9 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     {
       id: "2",
       title: "Lunch with Sarah",
-      description: "Catch up over lunch",
-      startDate: new Date(2024, 11, 16, 12, 30),
-      endDate: new Date(2024, 11, 16, 13, 30),
+      description: "Catch up over lunch and discuss vacation plans",
+      startDate: new Date(2025, 8, 12, 12, 30),
+      endDate: new Date(2025, 8, 12, 13, 30),
       color: "#10B981",
       category: "Personal",
       location: "Downtown Cafe",
@@ -132,10 +135,10 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     },
     {
       id: "3",
-      title: "Project Deadline",
-      description: "Submit final project deliverables",
-      startDate: new Date(2024, 11, 20, 9, 0),
-      endDate: new Date(2024, 11, 20, 17, 0),
+      title: "Q3 Project Review",
+      description: "Quarterly project review and planning for Q4",
+      startDate: new Date(2025, 8, 15, 9, 0),
+      endDate: new Date(2025, 8, 15, 17, 0),
       color: "#3B82F6",
       category: "Work",
       isAllDay: true,
@@ -143,36 +146,140 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     },
     {
       id: "4",
-      title: "Doctor Appointment",
-      startDate: new Date(2024, 11, 18, 14, 30),
-      endDate: new Date(2024, 11, 18, 15, 30),
+      title: "Annual Checkup",
+      description: "Annual physical examination",
+      startDate: new Date(2025, 8, 18, 14, 30),
+      endDate: new Date(2025, 8, 18, 15, 30),
       color: "#EF4444",
       category: "Health",
-      location: "Medical Center",
+      location: "City Medical Center",
       calendarId: "health",
     },
     {
       id: "5",
-      title: "Weekend Trip",
-      description: "Mountain hiking adventure",
-      startDate: new Date(2024, 11, 21, 0, 0),
-      endDate: new Date(2024, 11, 23, 23, 59),
+      title: "Fall Festival Weekend",
+      description: "Family trip to the autumn festival",
+      startDate: new Date(2025, 8, 21, 0, 0),
+      endDate: new Date(2025, 8, 22, 23, 59),
       color: "#8B5CF6",
-      category: "Personal",
+      category: "Family",
       isAllDay: true,
-      location: "Rocky Mountains",
+      location: "Riverside Park",
       calendarId: "family",
     },
     {
       id: "6",
       title: "Morning Workout",
-      startDate: new Date(2024, 11, 17, 7, 0),
-      endDate: new Date(2024, 11, 17, 8, 0),
+      description: "Cardio and strength training",
+      startDate: new Date(2025, 8, 11, 7, 0),
+      endDate: new Date(2025, 8, 11, 8, 0),
       color: "#EF4444",
       category: "Health",
       recurrence: "daily",
-      location: "Gym",
+      location: "FitLife Gym",
       calendarId: "health",
+    },
+    {
+      id: "7",
+      title: "Client Presentation",
+      description: "Present new marketing strategy to key client",
+      startDate: new Date(2025, 8, 13, 14, 0),
+      endDate: new Date(2025, 8, 13, 16, 0),
+      color: "#3B82F6",
+      category: "Work",
+      location: "Client Office - Downtown",
+      calendarId: "work",
+    },
+    {
+      id: "8",
+      title: "Pizza Night",
+      description: "Family pizza night and movie",
+      startDate: new Date(2025, 8, 14, 18, 0),
+      endDate: new Date(2025, 8, 14, 21, 0),
+      color: "#8B5CF6",
+      category: "Family",
+      location: "Home",
+      calendarId: "family",
+    },
+    {
+      id: "9",
+      title: "Dentist Appointment",
+      description: "Routine dental cleaning",
+      startDate: new Date(2025, 8, 16, 10, 0),
+      endDate: new Date(2025, 8, 16, 11, 0),
+      color: "#EF4444",
+      category: "Health",
+      location: "Smile Dental Clinic",
+      calendarId: "health",
+    },
+    {
+      id: "10",
+      title: "Team Building Event",
+      description: "Company team building activities and lunch",
+      startDate: new Date(2025, 8, 20, 10, 0),
+      endDate: new Date(2025, 8, 20, 15, 0),
+      color: "#3B82F6",
+      category: "Work",
+      location: "Adventure Park",
+      calendarId: "work",
+    },
+    {
+      id: "11",
+      title: "Book Club Meeting",
+      description: "Monthly book discussion - 'The Seven Husbands of Evelyn Hugo'",
+      startDate: new Date(2025, 8, 19, 19, 0),
+      endDate: new Date(2025, 8, 19, 21, 0),
+      color: "#10B981",
+      category: "Personal",
+      location: "Sarah's House",
+      calendarId: "personal",
+    },
+    {
+      id: "12",
+      title: "Weekend Yoga Retreat",
+      description: "Relaxing yoga and meditation retreat",
+      startDate: new Date(2025, 8, 28, 9, 0),
+      endDate: new Date(2025, 8, 29, 17, 0),
+      color: "#EF4444",
+      category: "Health",
+      isAllDay: true,
+      location: "Mountain Retreat Center",
+      calendarId: "health",
+    },
+    {
+      id: "13",
+      title: "Coffee with Mom",
+      description: "Weekly coffee date with mom",
+      startDate: new Date(2025, 8, 17, 15, 0),
+      endDate: new Date(2025, 8, 17, 16, 30),
+      color: "#8B5CF6",
+      category: "Family",
+      location: "Corner Bistro",
+      calendarId: "family",
+      recurrence: "weekly",
+    },
+    {
+      id: "14",
+      title: "Product Launch Meeting",
+      description: "Final preparations for new product launch",
+      startDate: new Date(2025, 8, 25, 9, 0),
+      endDate: new Date(2025, 8, 25, 12, 0),
+      color: "#3B82F6",
+      category: "Work",
+      location: "Conference Room B",
+      calendarId: "work",
+    },
+    {
+      id: "15",
+      title: "Grocery Shopping",
+      description: "Weekly grocery run",
+      startDate: new Date(2025, 8, 21, 10, 0),
+      endDate: new Date(2025, 8, 21, 11, 30),
+      color: "#10B981",
+      category: "Personal",
+      location: "Whole Foods",
+      calendarId: "personal",
+      recurrence: "weekly",
     },
   ])
 
@@ -192,6 +299,22 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
       createdAt: new Date(),
     }
     setCalendars((prev) => [...prev, newCalendar])
+  }
+
+  const addEvent = (eventData: Omit<CalendarEvent, "id">) => {
+    const newEvent: CalendarEvent = {
+      ...eventData,
+      id: Date.now().toString(),
+    }
+    setEvents((prev) => [...prev, newEvent])
+  }
+
+  const updateEvent = (id: string, updates: Partial<CalendarEvent>) => {
+    setEvents((prev) => prev.map((event) => (event.id === id ? { ...event, ...updates } : event)))
+  }
+
+  const deleteEvent = (id: string) => {
+    setEvents((prev) => prev.filter((event) => event.id !== id))
   }
 
   const updateCalendar = (id: string, updates: Partial<Calendar>) => {
@@ -249,6 +372,9 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
         deleteCalendar,
         toggleCalendarVisibility,
         getVisibleEvents,
+        addEvent,
+        updateEvent,
+        deleteEvent,
       }}
     >
       {children}
