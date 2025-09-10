@@ -9,6 +9,22 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    allowedHeaders: ['host'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 export default nextConfig
