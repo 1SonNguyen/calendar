@@ -4,6 +4,8 @@ import { useCalendar } from "./calendar-context"
 import { MonthView } from "./views/month-view"
 import { WeekView } from "./views/week-view"
 import { DayView } from "./views/day-view"
+import { YearView } from "./views/year-view"
+import { TimelineView } from "./views/timeline-view"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
@@ -30,6 +32,10 @@ export function CalendarMain() {
         return <WeekView />
       case "day":
         return <DayView />
+      case "year":
+        return <YearView />
+      case "timeline":
+        return <TimelineView />
       default:
         return <MonthView />
     }

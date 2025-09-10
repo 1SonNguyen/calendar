@@ -155,7 +155,7 @@ export function CalendarHeader() {
 
         <div className="flex items-center gap-1 md:gap-3">
           <div className="hidden md:flex items-center bg-muted rounded-lg p-1 shadow-sm">
-            {(["month", "week", "day"] as const).map((viewType) => (
+            {(["month", "week", "day", "year", "timeline"] as const).map((viewType) => (
               <Button
                 key={viewType}
                 variant={view === viewType ? "default" : "ghost"}
