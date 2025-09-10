@@ -15,9 +15,7 @@ import { QuickActions } from "./quick-actions"
 import { CalendarInsights } from "./calendar-insights"
 import { MeetingScheduler } from "./meeting-scheduler"
 import { CalendarSharing } from "./calendar-sharing"
-import { AdvancedScheduling } from "./advanced-scheduling"
-import { CollaborationHub } from "./collaboration-hub"
-import { EnterpriseFeatures } from "./enterprise-features"
+import { ImportExport } from "./import-export"
 
 export function CalendarSidebar() {
   const {
@@ -103,14 +101,11 @@ export function CalendarSidebar() {
         {/* Meeting Scheduler */}
         <MeetingScheduler />
 
-        {/* Advanced Scheduling */}
-        <AdvancedScheduling />
+        {/* Calendar Sharing */}
+        <CalendarSharing />
 
-        {/* Collaboration Hub */}
-        <CollaborationHub />
-
-        {/* Enterprise Features */}
-        <EnterpriseFeatures />
+        {/* Import & Export - Coming Soon */}
+        {/* <ImportExport /> */}
 
         <Card className="p-4 mb-6">
           <div className="flex items-center justify-between mb-3">

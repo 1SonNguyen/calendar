@@ -12,7 +12,6 @@ import { DragDropProvider } from "@/components/calendar/drag-drop-provider"
 import { KeyboardShortcuts } from "@/components/calendar/keyboard-shortcuts"
 import { MobileNavigation } from "@/components/calendar/mobile-navigation"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { AIAssistant } from "@/components/calendar/ai-assistant"
 
 export default function CalendarPage() {
   const isMobile = useIsMobile()
@@ -33,7 +32,6 @@ export default function CalendarPage() {
             <ThemeModal />
             <AnalyticsModal />
             <KeyboardShortcuts />
-            <AIAssistant />
           </div>
         </DragDropProvider>
       </AnalyticsProvider>
