@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useCalendar } from "./calendar-context"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -292,6 +292,9 @@ export function EventModal() {
             <Calendar className="h-5 w-5 text-blue-600" />
             {selectedEvent ? "Edit Event" : "Create New Event"}
           </DialogTitle>
+          <DialogDescription>
+            {selectedEvent ? "Modify the details of your existing event" : "Add a new event to your calendar with all the details"}
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="details" className="w-full">

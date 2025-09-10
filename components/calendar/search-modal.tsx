@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { useCalendar } from "./calendar-context"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -69,6 +69,9 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <Search className="h-5 w-5" />
             Search Events
           </DialogTitle>
+          <DialogDescription>
+            Find events by searching through titles, descriptions, locations, and categories
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">

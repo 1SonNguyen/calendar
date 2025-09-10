@@ -113,8 +113,8 @@ export function CalendarSidebar() {
         <Card className="p-4 mb-6">
           <h3 className="font-medium mb-3 text-center">{format(currentDate, "MMMM yyyy")}</h3>
           <div className="grid grid-cols-7 gap-1 text-center text-xs mb-2">
-            {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
-              <div key={day} className="p-1 text-muted-foreground font-medium">
+            {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
+              <div key={`day-${index}`} className="p-1 text-muted-foreground font-medium">
                 {day}
               </div>
             ))}
