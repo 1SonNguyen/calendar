@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
-import { Sun, Cloud, CloudRain, Snow, Wind, Thermometer } from "lucide-react"
+import { Sun, Cloud, CloudRain, Snowflake, Wind, Thermometer } from "lucide-react"
 import { format } from "date-fns"
 
 interface WeatherData {
@@ -23,29 +23,61 @@ export function WeatherWidget() {
   })
   const [isLoading, setIsLoading] = useState(false)
 
-  // Simulate weather data fetching
+  // Fetch real weather data from Open-Meteo API
   useEffect(() => {
-    const fetchWeather = () => {
+    const fetchWeather = async () => {
       setIsLoading(true)
-      setTimeout(() => {
-        // Mock weather data - in real app would be API call
-        const conditions: WeatherData["condition"][] = ["sunny", "cloudy", "rainy", "windy"]
-        const randomCondition = conditions[Math.floor(Math.random() * conditions.length)]
+      try {
+        // Get user's approximate location (using San Francisco as default)
+        const latitude = 37.7749
+        const longitude = -122.4194
+        
+        // Open-Meteo API call
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto`
+        )
+        
+        if (!response.ok) {
+          throw new Error('Weather API request failed')
+        }
+        
+        const data = await response.json()
+        
+        // Map weather codes to our conditions
+        const getCondition = (code: number): WeatherData["condition"] => {
+          if (code === 0) return "sunny"
+          if (code >= 1 && code <= 3) return "cloudy"
+          if (code >= 51 && code <= 67) return "rainy"
+          if (code >= 71 && code <= 77) return "snowy"
+          if (code >= 95) return "windy"
+          return "cloudy"
+        }
         
         setWeather({
-          temperature: Math.floor(Math.random() * 30) + 60, // 60-90°F
-          condition: randomCondition,
-          humidity: Math.floor(Math.random() * 40) + 30, // 30-70%
-          windSpeed: Math.floor(Math.random() * 15) + 3, // 3-18 mph
+          temperature: Math.round(data.current.temperature_2m),
+          condition: getCondition(data.current.weather_code),
+          humidity: data.current.relative_humidity_2m,
+          windSpeed: Math.round(data.current.wind_speed_10m),
+          location: "San Francisco", // In real app, would reverse geocode coordinates
+        })
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Error fetching weather:', error)
+        // Fallback to mock data
+        setWeather({
+          temperature: 72,
+          condition: "sunny",
+          humidity: 45,
+          windSpeed: 8,
           location: "San Francisco",
         })
         setIsLoading(false)
-      }, 1000)
+      }
     }
 
     fetchWeather()
-    // Update weather every hour
-    const interval = setInterval(fetchWeather, 3600000)
+    // Update weather every 30 minutes
+    const interval = setInterval(fetchWeather, 1800000)
     return () => clearInterval(interval)
   }, [])
 
@@ -58,7 +90,7 @@ export function WeatherWidget() {
       case "rainy":
         return <CloudRain className="h-8 w-8 text-blue-500" />
       case "snowy":
-        return <Snow className="h-8 w-8 text-blue-200" />
+        return <Snowflake className="h-8 w-8 text-blue-200" />
       case "windy":
         return <Wind className="h-8 w-8 text-gray-600" />
       default:

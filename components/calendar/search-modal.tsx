@@ -104,7 +104,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     key={category}
                     variant={selectedCategory === category ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => setSelectedCategory(category || null)}
                   >
                     {category}
                   </Button>
