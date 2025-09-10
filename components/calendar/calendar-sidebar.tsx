@@ -104,8 +104,8 @@ export function CalendarSidebar() {
         {/* Calendar Sharing */}
         <CalendarSharing />
 
-        {/* Import & Export */}
-        <ImportExport />
+        {/* Import & Export - Coming Soon */}
+        {/* <ImportExport /> */}
 
         <Card className="p-4 mb-6">
           <div className="flex items-center justify-between mb-3">

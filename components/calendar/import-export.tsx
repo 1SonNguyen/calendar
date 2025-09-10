@@ -12,7 +12,7 @@ import {
   FileText, 
   Calendar as CalendarIcon,
   ExternalLink,
-  Sync,
+  RefreshCw,
   CheckCircle2,
   AlertCircle,
   Loader2
@@ -218,7 +218,7 @@ export function ImportExport() {
   return (
     <Card className="p-4 mb-4 bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/50 dark:to-green-950/50 border-emerald-200 dark:border-emerald-800">
       <div className="flex items-center gap-2 mb-3">
-        <Sync className="h-4 w-4 text-emerald-600" />
+        <RefreshCw className="h-4 w-4 text-emerald-600" />
         <h3 className="font-medium text-emerald-900 dark:text-emerald-100">Import & Export</h3>
         <Badge variant="secondary" className="text-xs">
           <FileText className="h-3 w-3 mr-1" />
